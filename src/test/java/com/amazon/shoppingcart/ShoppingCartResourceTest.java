@@ -92,13 +92,12 @@ public class ShoppingCartResourceTest {
     @Test
     public void shoppingCourtResourceConstructorTest() {
 
-
         //GIVEN a product list A
         List<Product> products= new ArrayList<>();
         products.add(new Product("A1",10));
         ProductList productList = new ProductList(products);
 
-        //WHEN ShoppingCartResource class is instantiated
+        //WHEN ShoppingCartResource class is instantiated with product list A
         ShoppingCartResource resource = new ShoppingCartResource(productList);
 
         //THEN the resource object should have the product list A
@@ -113,16 +112,31 @@ public class ShoppingCartResourceTest {
     @Test
     public void shoppingCartResourceConstructorWithShoppingCartTest() {
 
-
         //GIVEN a product list A
+        List<Product> products= new ArrayList<>();
+        products.add(new Product("A1",10));
+        products.add(new Product("A2",20));
+
+        ProductList productList = new ProductList(products);
+
         // GIVEN a shopping cart C with product list B
+        List<Product> productsh= new ArrayList<>();
+        productsh.add(new Product("A1",1));
+
+        ShoppingCart cart = new ShoppingCart();
+        cart.setProductList(productsh);
+
         //WHEN a ShoppingCartResource object is initialized with ProductList A and ShoppingCart C
-        //THEN The ShoppingCartResource should be created with the ProductList A and ShoppingCart C
+        ShoppingCartResource resource = new ShoppingCartResource(productList, cart);
 
+        //THEN The ShoppingCartResource should be created with the ProductList A
+        Assertions.assertEquals(resource.getProductList(),productList,
+                "ShoppingCartResource is not initialized with the correct Product List");
 
-
-
-
+        // and ShoppingCart C
+        Assertions.assertEquals(resource.getCart().getProductList(),productsh,
+                "ShoppingCartResource is not initialized with the correct Shopping Cart");
 
     }
+
 }
