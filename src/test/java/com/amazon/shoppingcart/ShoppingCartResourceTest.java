@@ -5,6 +5,7 @@ import com.amazon.shoppingcart.model.ProductList;
 import com.amazon.shoppingcart.model.ShoppingCart;
 import com.amazon.shoppingcart.resource.ShoppingCartResource;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,9 @@ public class ShoppingCartResourceTest {
         resource.addItemToCart("A1");
 
         //THEN the product should be added to the user's shopping cart
-        assert cart.getProductList().size() == 1;
-        assert cart.getProductList().get(0).getProductCode().equals("A1");
+        Assertions.assertEquals(cart.getProductList().size(),1,"The cart size is not 1");
+        Assertions.assertEquals(cart.getProductList().get(0).getProductCode(),"A1","Product Code is not correct");
+
     }
 
     @Test
@@ -75,7 +77,7 @@ public class ShoppingCartResourceTest {
 
         //WHEN the user adds the product to the cart
         try {
-            resource.addItemToCart("");
+            resource.addItemToCart("A2");
         }
         catch (Exception e){
             assert (e.getMessage().equals("Invalid Product Code"));
