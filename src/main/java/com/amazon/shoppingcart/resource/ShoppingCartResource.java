@@ -24,9 +24,6 @@ public class ShoppingCartResource {
     }
 
     public void addItemToCart(String code) throws Exception {
-        if (code.isEmpty() || code == null){
-            throw new Exception("You cannot have an empty product code");
-        }
         if (productList.isProductInStock(code) == 1){
             cart.addProductToCart(code);
         } else if (productList.isProductInStock(code) == 0){

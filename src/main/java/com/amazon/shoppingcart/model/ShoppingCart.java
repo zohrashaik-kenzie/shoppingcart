@@ -1,26 +1,39 @@
 package com.amazon.shoppingcart.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCart {
 
-    private List<Product> cartProducts = new ArrayList<>();
+    // A1->1, A1->2
+    private Map<String,Integer> cartProducts = new HashMap<>();
 
-    public List<Product> getProductList() {
+    public ShoppingCart() {
+    }
+
+    public ShoppingCart(Map<String, Integer> cartProducts) {
+        this.cartProducts = cartProducts;
+    }
+
+    public Map<String, Integer> getCartProducts() {
         return cartProducts;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.cartProducts = productList;
+    public void setCartProducts(Map<String, Integer> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 
     public void addProductToCart(String code){
-        Product product = new Product(code,1);
-        cartProducts.add(product);
-    }
-
-    public ShoppingCart() {
+        //check if the product already exists
+        if(cartProducts.containsKey(code)){
+            //update the cart
+            int quantity = cartProducts.get(code);
+            cartProducts.replace(code, quantity+1);
+        } else {
+            cartProducts.put(code,1);
+        }
     }
 
 }
