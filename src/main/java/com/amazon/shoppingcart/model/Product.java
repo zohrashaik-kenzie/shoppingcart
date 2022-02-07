@@ -4,6 +4,9 @@ public class Product implements ProductInterface{
 
     String productCode;
     int productQuantity;
+    String description;
+    String manufacturer;
+
 
     public Product() {
     }
